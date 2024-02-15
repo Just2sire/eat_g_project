@@ -34,6 +34,8 @@ extension BuildContextEntension<T> on BuildContext {
 
   TextStyle? get headlineMedium => Theme.of(this).textTheme.headlineMedium;
 
+  TextStyle? get headlineSmall => Theme.of(this).textTheme.headlineSmall;
+
   TextStyle? get titleLarge => Theme.of(this).textTheme.titleLarge;
 
   TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
@@ -43,6 +45,8 @@ extension BuildContextEntension<T> on BuildContext {
   TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
 
   TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
+
+  TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
 
   TextStyle? get titleTextStyle => Theme.of(this).appBarTheme.titleTextStyle;
 
@@ -55,7 +59,10 @@ extension BuildContextEntension<T> on BuildContext {
   TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
 
   TextStyle? get dividerTextSmall => bodySmall?.copyWith(
-      letterSpacing: 0.5, fontWeight: FontWeight.w700, fontSize: 12.0);
+        letterSpacing: 0.5,
+        fontWeight: FontWeight.w700,
+        fontSize: 12.0,
+      );
 
   TextStyle? get dividerTextLarge => bodySmall?.copyWith(
         letterSpacing: 1.5,
@@ -98,6 +105,8 @@ extension BuildContextEntension<T> on BuildContext {
   Color get onTertiaryContainer =>
       Theme.of(this).colorScheme.onTertiaryContainer;
 
+  Color get surface => Theme.of(this).colorScheme.surface;
+
   Color get cardColor => Theme.of(this).cardColor;
 
   Color get errorColor => Theme.of(this).colorScheme.error;
@@ -106,7 +115,6 @@ extension BuildContextEntension<T> on BuildContext {
 
   Color get unselectedTab => Colors.white.withOpacity(0.5);
 
-  
   // String timestampToDate(int timestamp) {
   //   final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
   //   final dateFormat = DateFormat('HH:mm dd/MM/yyyy');
@@ -142,16 +150,4 @@ extension BuildContextEntension<T> on BuildContext {
   //   }
   // }
 
-  navToview(Widget widget) {
-    Navigator.of(this).push(MaterialPageRoute(builder: (context) => widget));
-  }
-
-  navBack() {
-    Navigator.of(this).pop();
-  }
-
-  navToAndReplace(Widget widget) {
-    Navigator.of(this)
-        .pushReplacement(MaterialPageRoute(builder: (context) => widget));
-  }
 }

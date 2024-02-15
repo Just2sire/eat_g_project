@@ -69,7 +69,8 @@ ThemeData ligthTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     primary: const Color(0xff9b7a54),
     secondary: const Color(0xfffff9eb),
-    // tertiary: Colors.white,
+    tertiary: const Color(0xff436c02),
+    surface: const Color(0xffad0505),
     seedColor: const Color(0xfffff9eb),
   ),
   fontFamily: "Poppins",

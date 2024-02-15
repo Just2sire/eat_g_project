@@ -14,10 +14,10 @@
 
 ## Points importans
 
-- Le projet Eat-G va se baser sur une architecture Feature Driven (Feature First)
+- Le projet Eat-G va se baser sur une architecture Domain Driven (Layer First)
     Dans le lib, on aura principalement deux dossiers:
-     1. **core/** : contient les éléments généraux du projet
-     2. **features/** : contient les fonctionnalités du projet (Auth, ...)
+     <!-- 1. **core/** : contient les éléments généraux du projet
+     2. **features/** : contient les fonctionnalités du projet (Auth, ...) -->
 
      [Confère ce lien pour plus d'infos](https://github.com/bizz84/flutter-tips-and-tricks/blob/main/tips/0039-flutter-project-structure-feature-first-or-layer-first/index.md)
 
