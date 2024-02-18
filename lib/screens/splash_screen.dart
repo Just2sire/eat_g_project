@@ -14,37 +14,16 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  // late AnimationController splashScreenAnimationController;
-  ScrollController scrollController = ScrollController();
   late AnimationController _controller;
-  // late Animation<double> _rotation;
   late Animation<Offset> _translation;
 
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(seconds: 50),
-        curve: Curves.linear,
-      );
-    });
-
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        // Scroll has reached the end, reset the position to the beginning.
-        scrollController.jumpTo(scrollController.position.minScrollExtent);
-      }
-    });
-
     _controller = AnimationController(
       duration: const Duration(seconds: 6),
       vsync: this,
     );
-    // _rotation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
     _translation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(100, 50),
@@ -61,7 +40,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    scrollController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -71,15 +49,29 @@ class _SplashScreenState extends State<SplashScreen>
     return random.nextDouble();
   }
 
+  List<String> items = [
+    "black_tilapia.png",
+    "carrot.png",
+    "chicken_meat.png",
+    "cucumber.png",
+    "pepper.png",
+    "potato.png",
+    "red_onion.png",
+    "sausages.png",
+    "tomato.png",
+    "black_tilapia.png",
+    "carrot.png",
+    "chicken_meat.png",
+    "cucumber.png",
+    "pepper.png",
+    "potato.png",
+    "red_onion.png",
+    "sausages.png",
+    "tomato.png",
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   scrollController.animateTo(
-    //     scrollController.position.maxScrollExtent,
-    //     duration: const Duration(seconds: 10),
-    //     curve: Curves.linear,
-    //   );
-    // });
 
     List<double> generateRandomValues() {
       final random = Random();
@@ -195,83 +187,15 @@ class _SplashScreenState extends State<SplashScreen>
             children: [
               SizedBox(
                 height: context.height * 0.06,
-                child: ListView(
-                  controller: scrollController,
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/black_tilapia.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/carrot.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/chicken_meat.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/cucumber.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/pepper.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/potato.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/red_onion.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/sausages.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/tomato.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/black_tilapia.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/carrot.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/chicken_meat.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/cucumber.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/pepper.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/potato.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/red_onion.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/sausages.png",
-                    ),
-                    const Gap(10),
-                    Image.asset(
-                      "assets/images/background_image_elements/tomato.png",
-                    ),
-                  ],
+                  itemCount: items.length,
+                  itemBuilder: ((context, index) {
+                    String image = items[index];
+                    return Image.asset(
+                      "assets/images/background_image_elements/$image",
+                    );
+                  }),
                 ),
               ),
               const Gap(20),

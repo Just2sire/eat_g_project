@@ -110,7 +110,7 @@ class MealItemCard extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.go(
+                        context.push(
                           "/details/$id",	
                           // pathParameters: {
                           //   "id": "3",
