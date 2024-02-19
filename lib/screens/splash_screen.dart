@@ -4,6 +4,7 @@ import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -72,7 +73,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-
     List<double> generateRandomValues() {
       final random = Random();
       final randomWidth = random.nextInt(context.width.toInt());
@@ -186,19 +186,27 @@ class _SplashScreenState extends State<SplashScreen>
           Column(
             children: [
               SizedBox(
-                height: context.height * 0.06,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: items.length,
-                  itemBuilder: ((context, index) {
-                    String image = items[index];
-                    return Image.asset(
-                      "assets/images/background_image_elements/$image",
-                    );
-                  }),
+            height: context.height * 0.06,
+                child: ScrollLoopAutoScroll(
+                  scrollDirection: Axis.horizontal, //required
+                  delay: const Duration(milliseconds: 200),
+                  duration: const Duration(seconds: 50),
+                  gap: 0,
+                  reverseScroll: false,
+                  duplicateChild: 25,
+                  enableScrollInput: true,
+                  delayAfterScrollInput: const Duration(seconds: 1),
+                  child: Row(
+                    children: List.generate(items.length, (index) {
+                      String image = items[index];
+                      return Image.asset(
+                        "assets/images/background_image_elements/$image",
+                      );
+                    }),
+                  ),
                 ),
               ),
-              const Gap(20),
+              const Gap(10),
             ],
           ),
         ],
