@@ -20,7 +20,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_svg: ^2.0.9
   gap: ^3.0.1
-
+  http: ^0.13.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
