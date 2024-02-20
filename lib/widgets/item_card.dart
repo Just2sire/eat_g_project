@@ -1,3 +1,4 @@
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -36,7 +37,15 @@ class MealItemCard extends StatelessWidget {
         height: 200,
         child: Row(
           children: [
-            Image.asset(
+            // CachedNetworkImage(
+            //   imageUrl: picture,
+            //   placeholder: (BuildContext context, String url) => const Center(
+            //     child: CircularProgressIndicator(),
+            //   ),
+            //   errorWidget: (BuildContext context, String url, dynamic error) =>
+            //       const Icon(Icons.error),
+            // ),
+            Image.network(
               picture,
               width: context.width * 0.18,
             ),
@@ -58,7 +67,9 @@ class MealItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      foodName.length > 18 ? "${foodName.substring(0, 17)}.." : foodName,
+                      foodName.length > 13
+                          ? "${foodName.substring(0, 13)}.."
+                          : foodName,
                       style: context.bodyLarge!.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -76,7 +87,9 @@ class MealItemCard extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: "${type.substring(0, 9)} ...",
+                                text: type.length > 9
+                                    ? "${type.substring(0, 9)} ..."
+                                    : type,
                                 style: context.bodyMedium!.copyWith(
                                   color: context.primary,
                                   fontWeight: FontWeight.bold,
@@ -88,16 +101,16 @@ class MealItemCard extends StatelessWidget {
                         const Gap(3),
                         RichText(
                           text: TextSpan(
-                            text: "Bien: ",
+                            text: "Likes: ",
                             style: context.bodyMedium!.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w400,
                             ),
                             children: [
                               TextSpan(
-                                text: "$goodness %",
+                                text: "$goodness 👍",
                                 style: context.bodyMedium!.copyWith(
-                                  color: goodness > 50
+                                  color: goodness > 10
                                       ? context.tertiary
                                       : context.surface,
                                   fontWeight: FontWeight.bold,
@@ -111,10 +124,7 @@ class MealItemCard extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         context.push(
-                          "/details/$id",	
-                          // pathParameters: {
-                          //   "id": "3",
-                          // }
+                          "/details/$id",
                         );
                       },
                       style: TextButton.styleFrom(

@@ -186,7 +186,7 @@ class _SplashScreenState extends State<SplashScreen>
           Column(
             children: [
               SizedBox(
-            height: context.height * 0.06,
+                height: context.height * 0.06,
                 child: ScrollLoopAutoScroll(
                   scrollDirection: Axis.horizontal, //required
                   delay: const Duration(milliseconds: 200),

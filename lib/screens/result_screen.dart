@@ -1,5 +1,6 @@
-import 'package:eat_g/data/meal_data.dart';
-import 'package:eat_g/models/meal_model.dart';
+// import 'package:eat_g/data/meal_data.dart';
+// import 'package:eat_g/models/meal_model.dart';
+import 'package:eat_g/services/recipe_service.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:eat_g/widgets/default_background_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,11 @@ import 'package:gap/gap.dart';
 import '../widgets/item_card.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  final List<String> queries;
+  const ResultScreen({
+    super.key,
+    required this.queries,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class ResultScreen extends StatelessWidget {
               // const Gap(10),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: "Tomate, Gari, Sucre, ...",
+                  hintText: "Tomato, Gari, Sugar, ...",
                   filled: true,
                   fillColor: Colors.white,
                   focusColor: Colors.white,
@@ -65,7 +70,7 @@ class ResultScreen extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () {},
                     label: Text(
-                      "Santé",
+                      "Health",
                       style: context.titleMedium!.copyWith(
                         color: Colors.red,
                       ),
@@ -78,7 +83,7 @@ class ResultScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Popularité",
+                      "Popularity",
                       style: context.titleMedium!.copyWith(
                         color: context.tertiary,
                       ),
@@ -87,7 +92,7 @@ class ResultScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Durée",
+                      "Duration",
                       style: context.titleMedium!.copyWith(
                         color: context.tertiary,
                       ),
@@ -97,27 +102,52 @@ class ResultScreen extends StatelessWidget {
               ),
               const Gap(15),
               Expanded(
-                child: GridView.builder(
-                  itemCount: meals.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  // padding: EdgeInsets.symmetric(horizontal: 10,),
-                  itemBuilder: (context, index) {
-                    final Meal(
-                      :foodName,
-                      :goodness,
-                      :id,
-                      :picture,
-                      :type,
-                    ) = meals[index];
-                    return MealItemCard(
-                      id: id,
-                      picture: picture,
-                      foodName: foodName,
-                      type: type,
-                      goodness: goodness,
-                    );
+                child: FutureBuilder(
+                  future: RecipeAPIService.getRecipeByIngredients(queries),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final data = snapshot.data as List;
+                      if (data.isNotEmpty) {
+                        return GridView.builder(
+                          itemCount: snapshot.data.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (context, index) {
+                            final data = snapshot.data[index];
+                            return MealItemCard(
+                              id: data["id"] as int,
+                              picture: data["image"] as String,
+                              foodName: data["title"] as String,
+                              type: "Diet",
+                              goodness: data["likes"],
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: Text(
+                            "No matching",
+                            style: context.titleLarge,
+                          ),
+                        );
+                      }
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          "An error occurred. Please check your connection",
+                          style: context.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    }
                   },
                 ),
               )

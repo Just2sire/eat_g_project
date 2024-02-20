@@ -16,15 +16,23 @@ final GoRouter routes = GoRouter(
       routes: <RouteBase>[
         useRoute("home", const HomeScreen()),
         useRoute("Second_home", const SecondHomeScreen()),
-        useRoute("result", const ResultScreen()),
+        // useRoute("result", const ResultScreen()),
         // useRoute("details", const PlatDetailsScreen()),
+        GoRoute(
+          path: "results",
+          builder: (BuildContext context, GoRouterState state) {
+            return ResultScreen(
+              queries: state.extra! as List<String>,
+            );
+          },
+        ),
         GoRoute(
           // name: "details",
           path: "details/:id",
           builder: (BuildContext context, GoRouterState state) {
             final id = state.pathParameters['id']!;
             return PlatDetailsScreen(
-              id: id,
+              id: int.parse(id),
             );
           },
         )

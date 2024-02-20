@@ -1,5 +1,4 @@
-import 'package:eat_g/data/meal_data.dart';
-import 'package:eat_g/models/meal_model.dart';
+import 'package:eat_g/services/recipe_service.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,7 +8,7 @@ import '../widgets/default_background_widget.dart';
 import '../widgets/detail_card_item.dart';
 
 class PlatDetailsScreen extends StatefulWidget {
-  final String id;
+  final int id;
   const PlatDetailsScreen({
     super.key,
     required this.id,
@@ -37,12 +36,6 @@ class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     int curentPageViewIndex = 0;
-    final Meal(
-      :foodName,
-      // :goodness,
-      // :picture,
-      :type,
-    ) = meals[int.parse(widget.id)];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -57,80 +50,105 @@ class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
           // ),
         ),
       ),
-      body: DefaultBackgroundWidget(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 60,
-              alignment: Alignment.center,
-              color: Colors.white,
-              child: Text(
-                foodName,
-                style: context.headlineSmall!.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const Gap(15),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                  child: SizedBox(
-                    width: context.width * 1,
-                    height: 180,
-                    child: PageView(
-                      onPageChanged: (index) {
-                        setState(() {
-                          curentPageViewIndex = index;
-                        });
-                        print(curentPageViewIndex);
-                      },
-                      children: const [
-                        DetailCardItem(
-                          content: "Card 1",
+      body: FutureBuilder(
+        future: RecipeAPIService.getRecipeDetails(widget.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data as Map;
+            return DefaultBackgroundWidget(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 60,
+                      alignment: Alignment.center,
+                      color: Colors.white,
+                      child: Text(
+                        data["title"],
+                        style: context.titleLarge!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
-                        DetailCardItem(
-                          content: "Card 2",
-                        ),
-                        DetailCardItem(
-                          content: "Card 3",
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 160,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(3, (index) {
-                      return PageViewIndicator(
-                        isActive: curentPageViewIndex == index ? true : false,
-                      );
-                    }),
+                  const Gap(15),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        child: SizedBox(
+                          width: context.width * 1,
+                          height: 180,
+                          child: PageView(
+                            onPageChanged: (index) {
+                              setState(() {
+                                curentPageViewIndex = index;
+                              });
+                              // print(curentPageViewIndex);
+                            },
+                            children: [
+                              DetailCardItem(
+                                content: data["image"],
+                              ),
+                              DetailCardItem(
+                                content: data["image"],
+                              ),
+                              DetailCardItem(
+                                content: data["image"],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 160,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(3, (index) {
+                            return PageViewIndicator(
+                              isActive:
+                                  curentPageViewIndex == index ? true : false,
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const Gap(10),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                  const Gap(10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      "Diets",
+                      textAlign: TextAlign.start,
+                      style: context.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: context.primary,
+                      ),
+                    ),
+                  )
+                ],
               ),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Center(
               child: Text(
-                type,
-                textAlign: TextAlign.start,
+                "An error occurred. Please check your connection",
                 style: context.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: context.primary,
                 ),
               ),
-            )
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }
