@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-ThemeData ligthTheme = ThemeData(
+ThemeData darkTheme = ThemeData(
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xfffff9eb),
+    backgroundColor: Color(0xff262020),
     titleTextStyle: TextStyle(
-      color: Color(0xfffff9eb),
+      color: Color(0xff262020),
       fontSize: 20,
     ),
   ),
-  scaffoldBackgroundColor: const Color(0xfffff9eb),
+  scaffoldBackgroundColor: const Color(0xff262020),
   textTheme: TextTheme(
     displayLarge: TextStyle(
       fontSize: 96,
@@ -69,7 +69,8 @@ ThemeData ligthTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     primary: const Color(0xff9b7a54),
     secondary: const Color(0xfffff9eb),
-    // tertiary: Colors.white,
+    tertiary: const Color(0xff436c02),
+    surface: const Color(0xffad0505),
     seedColor: const Color(0xfffff9eb),
   ),
   fontFamily: "Poppins",
