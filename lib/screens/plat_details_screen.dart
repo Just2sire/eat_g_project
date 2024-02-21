@@ -1,8 +1,10 @@
+import 'package:eat_g/providers/theme_provider.dart';
 import 'package:eat_g/services/recipe_service.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/default_background_widget.dart';
 import '../widgets/detail_card_item.dart';
@@ -19,23 +21,22 @@ class PlatDetailsScreen extends StatefulWidget {
 }
 
 class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
-  late PageController pageController;
+  // late PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
+    // pageController = PageController(initialPage: 0);
   }
 
   @override
   void dispose() {
-    pageController.dispose();
+    // pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    int curentPageViewIndex = 0;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -49,6 +50,24 @@ class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
           //   "assets/icons/menuBar.png",
           // ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeProvider>().switchTheme();
+            },
+            icon: context.watch<ThemeProvider>().isLight
+                ? Icon(
+                    Icons.light_mode,
+                    color: context.primary,
+                    size: 24,
+                  )
+                : Icon(
+                    Icons.dark_mode,
+                    color: context.primary,
+                    size: 24,
+                  ),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: RecipeAPIService.getRecipeDetails(widget.id),
@@ -56,82 +75,187 @@ class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
           if (snapshot.hasData) {
             final data = snapshot.data as Map;
             return DefaultBackgroundWidget(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 60,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Align(
                       alignment: Alignment.center,
-                      color: Colors.white,
-                      child: Text(
-                        data["title"],
-                        style: context.titleLarge!.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Gap(15),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        child: SizedBox(
-                          width: context.width * 1,
-                          height: 180,
-                          child: PageView(
-                            onPageChanged: (index) {
-                              setState(() {
-                                curentPageViewIndex = index;
-                              });
-                              // print(curentPageViewIndex);
-                            },
-                            children: [
-                              DetailCardItem(
-                                content: data["image"],
-                              ),
-                              DetailCardItem(
-                                content: data["image"],
-                              ),
-                              DetailCardItem(
-                                content: data["image"],
-                              ),
-                            ],
+                      child: Container(
+                        height: 60,
+                        alignment: Alignment.center,
+                        color: Colors.white,
+                        child: Text(
+                          data["title"],
+                          style: context.titleLarge!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 160,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(3, (index) {
-                            return PageViewIndicator(
-                              isActive:
-                                  curentPageViewIndex == index ? true : false,
-                            );
-                          }),
+                    ),
+                    const Gap(15),
+                    SizedBox(
+                      width: context.width * 1,
+                      height: 180,
+                      child: DetailCardItem(
+                        content: data["image"],
+                      ),
+                    ),
+                    const Gap(10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        "Diets",
+                        textAlign: TextAlign.start,
+                        style: context.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: context.primary,
                         ),
                       ),
-                    ],
-                  ),
-                  const Gap(10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
                     ),
-                    child: Text(
-                      "Diets",
-                      textAlign: TextAlign.start,
-                      style: context.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: context.primary,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 7,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Health Score:",
+                            style: context.bodyLarge!.copyWith(
+                              color: context.watch<ThemeProvider>().isLight
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            (data['healthScore'] as int).toString(),
+                            style: context.bodyLarge!.copyWith(
+                              color: context.tertiary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 7,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Preparation time:",
+                            style: context.bodyLarge!.copyWith(
+                              color: context.watch<ThemeProvider>().isLight
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "${(data['readyInMinutes'] as int).toString()} min",
+                            style: context.bodyLarge!.copyWith(
+                              color: context.tertiary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //     horizontal: 20,
+                    //     vertical: 5,
+                    //   ),
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       Align(
+                    //         alignment: Alignment.centerLeft,
+                    //         child: Text(
+                    //           "Vitamin intake:",
+                    //           style: context.bodyLarge!.copyWith(
+                    //             color: context.watch<ThemeProvider>().isLight ? Colors.black : Colors.white,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       const Gap(7),
+                    //       Container(
+                    //         width: double.infinity,
+                    //         padding: const EdgeInsets.symmetric(
+                    //           horizontal: 10,
+                    //           vertical: 5,
+                    //         ),
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(4),
+                    //         ),
+                    //         child: Text(
+                    //           "Vit C, Omega 2, Graisse, Magnesium ...",
+                    //           style: context.bodyMedium!.copyWith(
+                    //             color: Colors.black,
+                    //             fontSize: 16,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 7,
+                      ).copyWith(
+                        bottom: 20,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Recette:",
+                              style: context.bodyLarge!.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Gap(7),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              (data["instructions"] as String).isEmpty
+                                  ? "Aucune instruction"
+                                  : data["instructions"] as String,
+                              style: context.bodyMedium!.copyWith(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -142,7 +266,9 @@ class _PlatDetailsScreenState extends State<PlatDetailsScreen> {
             return Center(
               child: Text(
                 "An error occurred. Please check your connection",
+                textAlign: TextAlign.center,
                 style: context.bodyLarge!.copyWith(
+                  color: context.primary,
                   fontWeight: FontWeight.bold,
                 ),
               ),

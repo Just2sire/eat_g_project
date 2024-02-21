@@ -1,5 +1,7 @@
+import 'package:eat_g/providers/theme_provider.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DefaultBackgroundWidget extends StatelessWidget {
   final Widget child;
@@ -20,7 +22,7 @@ class DefaultBackgroundWidget extends StatelessWidget {
         ),
       ),
       child: ColoredBox(
-        color: context.secondary.withOpacity(0.6),
+        color: context.watch<ThemeProvider>().isLight ? context.secondary.withOpacity(0.6) : Colors.black45.withOpacity(0.5),
         child: child,
       ),
     );

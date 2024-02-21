@@ -17,7 +17,12 @@ class DetailCardItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(image: NetworkImage(content, scale: 1.1,),),
+        image: DecorationImage(
+          image: NetworkImage(
+            content,
+            scale: 1.1,
+          ),
+        ),
       ),
       // child: Image.network(content, fit: BoxFit.contain,),
     );

@@ -1,11 +1,9 @@
+import 'package:eat_g/providers/theme_provider.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,24 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final TextEditingController _ingredientsController = TextEditingController();
 
   @override
   void dispose() {
     _ingredientsController.dispose();
     super.dispose();
-  }
-
-  static const String apiUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-
-  Future<dynamic> getRecipes(String ingredients) async {
-    final response = await http.get(Uri.parse('$apiUrl$ingredients'));
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body); // Handle response
-    } else {
-      throw Exception('Erreur lors de la récupération des recettes');
-    }
   }
 
   @override
@@ -50,6 +36,24 @@ class _HomeScreenState extends State<HomeScreen> {
           //   "assets/icons/menuBar.png",
           // ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeProvider>().switchTheme();
+            },
+            icon: context.watch<ThemeProvider>().isLight
+                ? Icon(
+                    Icons.light_mode,
+                    color: context.primary,
+                    size: 24,
+                  )
+                : Icon(
+                    Icons.dark_mode,
+                    color: context.primary,
+                    size: 24,
+                  ),
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(
@@ -127,14 +131,17 @@ class _HomeScreenState extends State<HomeScreen> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  final results = _ingredientsController.text.trim().split(",");
+                  if (_ingredientsController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Insert your ingredients"),
+                      ),
+                    );
+                  } else {
+                    final results =
+                        _ingredientsController.text.trim().split(",");
                     context.push('/results', extra: results);
-                  // final ingredients = _ingredientsController.text.trim();
-                  // try {
-                  //   final results = await getRecipes(ingredients);
-                  // } on Exception catch (e) {
-                  //   // Handle API errors
-                  // }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.primary,

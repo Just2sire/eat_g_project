@@ -1,10 +1,12 @@
 // import 'package:eat_g/data/meal_data.dart';
 // import 'package:eat_g/models/meal_model.dart';
+import 'package:eat_g/providers/theme_provider.dart';
 import 'package:eat_g/services/recipe_service.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:eat_g/widgets/default_background_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/item_card.dart';
 
@@ -30,6 +32,24 @@ class ResultScreen extends StatelessWidget {
             "assets/icons/menuBar.png",
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeProvider>().switchTheme();
+            },
+            icon: context.watch<ThemeProvider>().isLight
+                ? Icon(
+                    Icons.light_mode,
+                    color: context.primary,
+                    size: 24,
+                  )
+                : Icon(
+                    Icons.dark_mode,
+                    color: context.primary,
+                    size: 24,
+                  ),
+          ),
+        ],
       ),
       body: DefaultBackgroundWidget(
         child: Padding(
@@ -43,7 +63,7 @@ class ResultScreen extends StatelessWidget {
               // const Gap(10),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: "Tomato, Gari, Sugar, ...",
+                  // hintText: "Tomato, Gari, Sugar, ...",
                   filled: true,
                   fillColor: Colors.white,
                   focusColor: Colors.white,
@@ -129,7 +149,10 @@ class ResultScreen extends StatelessWidget {
                         return Center(
                           child: Text(
                             "No matching",
-                            style: context.titleLarge,
+                            textAlign: TextAlign.center,
+                            style: context.titleLarge!.copyWith(
+                              color: context.primary,
+                            ),
                           ),
                         );
                       }
@@ -142,7 +165,9 @@ class ResultScreen extends StatelessWidget {
                       return Center(
                         child: Text(
                           "An error occurred. Please check your connection",
+                          textAlign: TextAlign.center,
                           style: context.bodyLarge!.copyWith(
+                            color: context.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

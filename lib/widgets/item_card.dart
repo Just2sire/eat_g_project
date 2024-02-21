@@ -1,4 +1,3 @@
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eat_g/utils/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -24,6 +23,7 @@ class MealItemCard extends StatelessWidget {
     return Card(
       elevation: 3,
       clipBehavior: Clip.antiAliasWithSaveLayer,
+      color: Colors.white.withOpacity(0.7),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
@@ -37,14 +37,6 @@ class MealItemCard extends StatelessWidget {
         height: 200,
         child: Row(
           children: [
-            // CachedNetworkImage(
-            //   imageUrl: picture,
-            //   placeholder: (BuildContext context, String url) => const Center(
-            //     child: CircularProgressIndicator(),
-            //   ),
-            //   errorWidget: (BuildContext context, String url, dynamic error) =>
-            //       const Icon(Icons.error),
-            // ),
             Image.network(
               picture,
               width: context.width * 0.18,
