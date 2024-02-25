@@ -1,44 +1,49 @@
-# Projet Eat-G
+# Projet Eat-G (Eat Good)
 
-## Description
+## Introduction
 
-**Introduction**
+Eat-G (Eat Good)
 
-...
+Eat-G est une application mobile conçue pour vous aider à cuisiner des repas délicieux et nutritifs à partir des ingrédients que vous avez sous la main. Fini les repas monotones et le gaspillage alimentaire ! Avec Eat-G, découvrez une variété infinie de recettes adaptées à vos besoins et à vos préférences alimentaires.
 
 ## Installation
 
+L'installation pour utilisation de l'application est assez simple et intuitif
 
+- On clone le projet:
+    git clone https://github.com/Just2sire/eat_g_project.git
+
+- On ouvre le projet dans notre éditeur de code préféré
+
+- Et là, on installe les dépendances de notre projet avec la commande:
+    flutter pub get
+
+- Ainsi, on a tout les éléments pour lancer notre projet. On tape finalement la commande:
+    flutter run
+
+Voilà, notre projet est pret à tourner sur votre émulateur ou votre téléphone mobile.
 
 ## Utilisation
 
-## Points importans
+Comment utiliser :
 
-- Le projet Eat-G va se baser sur une architecture Feature Driven (Feature First)
-    Dans le lib, on aura principalement deux dossiers:
-     1. **core/** : contient les éléments généraux du projet
-     2. **features/** : contient les fonctionnalités du projet (Auth, ...)
+1. Téléchargez l'application Eat-G
 
-     [Confère ce lien pour plus d'infos](https://github.com/bizz84/flutter-tips-and-tricks/blob/main/tips/0039-flutter-project-structure-feature-first-or-layer-first/index.md)
+2. Entrez les ingrédients que vous avez à disposition.
+ 
+3. Parcourez les recettes proposées et choisissez celle qui vous convient.
 
-- Pour la navigation dans le projet, le package [go_router](https://pub.dev/packages/go_router) est utilisé permettant de facilement gérer
-    la navigation à partir du context (context.go, context.push, context.pop,...) et de regrouper nos routes dans un seul fichier (/lib/routes/routes.dart).
+4. Suivez les instructions de préparation et régalez-vous !
 
-- Pour la gestion d'état général de l'app, le package [provider](https://pub.dev/packages/provider) est utilisé
+Mangez bien, mangez sain avec Eat-G !
 
-- Pour la gestion des variables d'environnement, le package [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) est utilisé
+## Fonctionnalités principales
 
-- En vue, de faciliter l'accès à certains éléments, une extension sur le BuildContext a été mis en place dans le fichier /lib/utils/build_context_extension.dart ce.
-    Avec celà, on pourra utiliser le context.heigth et context.width pour accéder aux dimensions de l'écran...
-    Plus d'infos sur les extensions en lisant cet [article Linkedin](https://www.linkedin.com/posts/desir%C3%A9-kossi-122675218_bonjour-%C3%A0-tous-je-vous-pr%C3%A9sente-aujourdhui-activity-7151162904015233024-xbhZ?utm_source=share&utm_medium=member_desktop)
+- Recherche de recettes personnalisée : Entrez simplement les ingrédients que vous avez dans votre cuisine, et Eat-G vous proposera une sélection de recettes adaptées.
 
-- Pour le theming dans l'app, un dossier theme a été mis en place dans le lib/core/. Ce dossier contiendra les différents thèmes de l'app   notemmment le ligt_theme qui est déjà en place et le dark à venir.
+- Indice de bien-être : Chaque recette est accompagnée d'un indice de bien-être, vous permettant de faire des choix alimentaires sains et équilibrés.
 
+- Mode sombre : Profitez d'une expérience utilisateur confortable, même la nuit, avec le mode sombre intégré.
 
+- Multiplateforme : Disponible sur Android et iOS grâce à la technologie multiplateforme Flutter.
 
-
-...
-
-## Licence
-
-...
