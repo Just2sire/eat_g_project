@@ -2,55 +2,55 @@
 
 ## Introduction
 
-Bienvenue dans Eat-G (Eat Good) ! 🎉
+Welcome to Eat-G (Eat Good)! 🎉
 
-Eat-G est bien plus qu'une simple application de recettes. C'est votre compagnon ultime pour des repas délicieux et nutritifs, cuisinés à partir des ingrédients que vous avez sous la main. Fini les repas monotones et le gaspillage alimentaire ! Avec Eat-G, découvrez une variété infinie de recettes adaptées à vos besoins et à vos préférences alimentaires. 🍲✨
+Eat-G is much more than just a recipe app. It's your ultimate companion for delicious, nutritious meals, cooked from the ingredients you have on hand. No more monotonous meals or food waste! With Eat-G, discover an infinite variety of recipes tailored to your dietary needs and preferences. 🍲✨
 
 ## Installation
 
-L'installation de l'application est aussi simple que de déguster une bonne salade ! 😋 Suivez ces étapes simples :
+Installing the app is as easy as enjoying a good salad! 😋 Follow these simple steps:
 
-1. Clonez le projet :
+1. Clone the project:
    ```
    git clone https://github.com/Just2sire/eat_g_project.git
    ```
 
-2. Ouvrez le projet dans votre éditeur de code préféré.
+2. Open the project in your favorite code editor.
 
-3. Installez les dépendances :
+3. Install the dependencies:
    ```
    flutter pub get
    ```
 
-4. Lancez le projet :
+4. Launch the project:
    ```
    flutter run
    ```
 
-Et voilà, votre projet est prêt à être dégusté sur votre émulateur ou votre téléphone mobile ! 🚀
+And that's it, your project is ready to be enjoyed on your emulator or cell phone! 🚀
 
-## Utilisation
+## Use
 
-Utiliser Eat-G est un jeu d'enfant ! Suivez simplement ces étapes :
+Using Eat-G is child's play! Simply follow these steps:
 
-1. Téléchargez et ouvrez l'application Eat-G sur votre appareil.
+1. Download and open the Eat-G app on your device.
 
-2. Entrez les ingrédients que vous avez à disposition dans votre cuisine.
+2. Enter the ingredients you have available in your kitchen.
 
-3. Parcourez les délicieuses recettes proposées et choisissez celle qui vous fait envie.
+3. Browse the delicious recipes and choose the one you like.
 
-4. Suivez les instructions de préparation et régalez-vous ! 🍴
+4. Follow the preparation instructions and enjoy! 🍴
 
-Mangez bien, mangez sain avec Eat-G ! 🥦🌽🥑
+Eat well, eat healthy with Eat-G! 🥦🌽🥑
 
-## Fonctionnalités principales
+## Key features
 
-- Recherche de recettes personnalisée : Entrez simplement les ingrédients que vous avez à portée de main, et Eat-G vous proposera une sélection de recettes adaptées à vos besoins.
+- Customized recipe search: Simply enter the ingredients you have on hand, and Eat-G will suggest a selection of recipes tailored to your needs.
 
-- Indice de bien-être : Chaque recette est accompagnée d'un indice de bien-être, vous permettant de faire des choix alimentaires sains et équilibrés.
+- Wellness index: Each recipe is accompanied by a wellness index, enabling you to make healthy, balanced food choices.
 
-- Mode sombre : Profitez d'une expérience utilisateur confortable, même la nuit, grâce au mode sombre intégré.
+- Dark mode: Enjoy a comfortable user experience, even at night, thanks to the integrated dark mode.
 
-- Multiplateforme : Disponible sur Android et iOS grâce à la technologie multiplateforme Flutter. 📱💻
+- Cross-platform: Available on Android and iOS thanks to Flutter cross-platform technology. 📱💻
 
-Alors, prêt à découvrir de nouvelles saveurs avec Eat-G ? Bon appétit ! 🥗🍜🍓
+So, ready to discover new flavors with Eat-G? Bon appétit! 🥗🍜🍓
