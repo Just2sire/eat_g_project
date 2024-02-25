@@ -62,7 +62,9 @@ class ResultScreen extends StatelessWidget {
             children: [
               // const Gap(10),
               TextFormField(
+                enabled: false,
                 decoration: InputDecoration(
+                  hintText: queries.join(", "),
                   // hintText: "Tomato, Gari, Sugar, ...",
                   filled: true,
                   fillColor: Colors.white,

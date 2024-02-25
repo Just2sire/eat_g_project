@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 6),
+      duration: const Duration(seconds: 3),
       vsync: this,
     );
     _translation = Tween<Offset>(
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.repeat();
 
     Future.delayed(
-      const Duration(seconds: 6),
+      const Duration(seconds: 3),
       () => context.pushReplacement("/home"),
     );
   }
